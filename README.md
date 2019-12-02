@@ -42,7 +42,7 @@ Instagram is the largest Django application out there right now. When it was sol
 
 ## Conclusion
 
-Throughout the week, we will be building a few full stack applications with Django. Think about that for a moment. So far, we have spent entire units learning out to build out different parts of an application, from the front end to the back end and putting everything together. Using Django, we will be able to follow the pattern of MVC that we already became familiar with in Express to build out dynamic projects in a (much) shorter amount of time!
+Throughout the week, we will be building a few full stack applications with Django. Think about that for a moment. So far, we have spent entire units learning out to build out different parts of an application, from the front end to the back end and putting everything together. Using Django, we will be able to build out dynamic projects in a (much) shorter amount of time!
 
 ## Additional Resources
 
