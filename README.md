@@ -38,6 +38,8 @@ What are the benefits that these companies see in building their applications wi
 1. It's scalable - the dream of any business is to grow. When an application is built with Django, the framework doesn't have to change in order for it's size to expand with the business.
 1. It's simple and fast - apps can get off the ground faster because the structure is simple, and and Django has a reputation to be quick for development.
 
+Instagram is the largest Django application out there right now. When it was sold to Facebook, they had a total of 13 employees working on the app. Today, they have hundreds!
+
 ## Conclusion
 
 Throughout the week, we will be building a few full stack applications with Django. Think about that for a moment. So far, we have spent entire units learning out to build out different parts of an application, from the front end to the back end and putting everything together. Using Django, we will be able to follow the pattern of MVC that we already became familiar with in Express to build out dynamic projects in a (much) shorter amount of time!
