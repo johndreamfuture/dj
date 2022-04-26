@@ -30,25 +30,30 @@ We're going to make a Django project called `nyc_subway` that will keep track of
 We'll start by creating our project folder: `mkdir nyc_subway`. 
 
 
-### Set Up Virtual Environment
+### Set Up & Manage Virtual Environment
 
 We'll be using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) to manage our virtual environments. 
 
 Create the virutal environment with `mkvirtualenv nyc_subway`.
 
-We'll automatically enter the virtual envirnoment when we create it. If we want to exit the virtual environment we can run the `deactivate` command. Whever we need to re-etner the environment, we can run `workon nyc_subway`. Running just the `workon` command will list all of our available environments.
+We'll automatically enter the virtual envirnoment when we create it. Exit the environemnt with the `deactivate` command and re-enter with `workon nyc_subway`. 
+
+Running just the `workon` command will list all of our available environments and `rmvirtualenv environment_name` to delete one.
 
 
-### Install Dependencies
-To install our Django dependency we'll run `pip install django`.
+### Install Django
+To install Django we'll run `pip install django`.
 
-We can run the `pip freeze` command to show what dependencies are installed for our current environment. If we want to check our list of dependencies into source control, we'll create a file called `requirements.txt` using the `freeze` command via `pip freeze > requirements.txt`. Then, if someone gets our code from source control and wants to install the correct dependencies they'll make their own virtual environment and run `pip install -r requirements.txt`.
+In order to manage our dependencies, we can run run `pip freeze > requirements.txt`. The `pip freeze` command on its own will show what dependencies are installed (in this case, for our virtual environment). 
+
+If someone wants to install the project's dependencies on another computer, they would create a virtual environemnt and run `pip install -r requirements.txt`.
+
 
 ### Using `django-admin` to create our Django Project
 
 Django includes a `django-admin` command that we can use to quickly start a project template.
 
-Run the command (including the `.` at the end): `django-admin startproject nyc_subway`. Your directory should look like this:
+Run the command (including the `.` at the end): `django-admin startproject nyc_subway . `. Your directory should look like this:
 ```
 .
 ├── nyc_subway
@@ -75,20 +80,22 @@ It should *not* look like this:
 └── requirements.txt
 ```
 
-If it looks like the second example, you ran the command wrong. Make sure you are running `django-admin startproject nyc_subway . ` with the `.` at the end. Delete the directory and start over. Also make sure you've run the `pip freeze > requirements.txt` command.
+If it looks like the second example, you ran the command wrong. Make sure you ran `django-admin startproject nyc_subway . ` with the `.` at the end. Delete the directory and start over. Also make sure you've run the `pip freeze > requirements.txt` command after!
+
 
 #### Start the Server
 
-Check out `manage.py`! The `manage.py` script contains a lot of management commands for Django. You can see a list of commands that `manage.py` offers by typing `python manage.py`.
+Our Django project has create a file called `manage.py`! The `manage.py` script contains a lot of management commands for Django. You can see a list of the commands `manage.py` offers by typing `python manage.py`.
 
-We can run `python manage.py runserver` to check that our project runs without errors. For now it will load a nice homepage and not do much else.
+We can run `python manage.py runserver` to start the server. We can run this right now to check that our project runs without errors. For now it will load a nice homepage and not do much else.
+
 
 ### Setting Up Postgresql
 
-By default Django uses SQLite. We'll be using Postgresql. Make sure that our database is up and running with `brew services list`, then run the following SQL script:
+By default Django uses SQLite. We'll be using Postgresql instead. Make sure that our database is up and running with `brew services list`, then run the following SQL script:
 
 
-```
+```sql
 -- Create the database
 CREATE DATABASE nyc_subway;
 
@@ -105,7 +112,7 @@ Update our project requirements with `pip freeze > requirements.txt`.
 
 Finally, we will edit our `nyc_subway/stettings.py` to include the database configuration:
 
-```
+```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -117,10 +124,24 @@ DATABASES = {
 }
 ```
 
-We can use the `python manage.py runserver` command to make sure it connects to our database without errors. 
+Run the `python manage.py runserver` command to make sure it connects to our database without errors. 
+
 
 ### Using `django-admin` to create our Djang App
 
 A Django *project* is composed of many *apps*. Our `nyc_subway` project directory is the base of the Django project where we'll handle our base routes, project-level configurations and include our apps. We'll make a `subway` app where we will write our models.
 
 Create the app with `django-admin startapp subway`. (Note there's no `.` at the end this time). 
+
+Then, update `nyc_subway/settings.py` to include `'subway'` in the list of `INSTALLED_APPS`:
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'subway'
+]
+```
