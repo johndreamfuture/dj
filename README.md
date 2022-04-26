@@ -2,27 +2,26 @@
 
 # Intro to Django
 
-We're about to learn our second web framework, Django. Django is a full-featured
-framework for building complex web applications with ease and speed.
+So far we've learened how to make the back-end for web applications two different ways: in Express with Node in JavaScript, and then with Flask in Python. Both are relatively lightweight and require other libraries in order to have even basic functionality (such as Mongoose or PeeWee). Django is philosophically different in that it strives to be a full-featured *framework*, so it will include significantly more features and have much stronger "opinions" on how its code should be written. Neither philosophical approach (lightweight vs. full-featured) is intrinsically better than the other as both have advantages and disadvantages. You may find yourself prefering one way over the other.
 
-We'll learn the core features of Django and how to build web apps "the Django
+Let's learn the core features of Django and how to build web apps "the Django
 way."
 
 ## Objectives
 
-By the end of this, developers should be able to:
+By the end of this, you should be able to:
 
 * Discuss the core features of Django
 * Compare and contrast building applications with Django and Express
 * Walk through how Django handles the request-response cycle
 
-## What is Django? (5 min / 0:05)
+## What is Django?
 
 As defined in the [official documentation](https://www.djangoproject.com/), "Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source."
 
 Django is a web framework that is know for its speed, security, scalability and versatility. It also comes with a lot of extra features that, although may have a learning curve when it comes to becoming familiar with using them, make your life as a developer a lot easier, eliminating a lot of the hard coding you may have had to do in the past to implement the same functionality.
 
-### Background (5 min / 0:10)
+### Background
 
 Created in 2003 by Adrian Holovaty and Simon Willison, developers at the Lawrence Journal World Newspaper, Django was born out of frustrations the developers had working with PHP. Working for the publication, applications often had to be created very quickly, sometimes within a few hours, and Holovaty and Willison needed a tool to accomplish just that, while keeping the development process clean and maintainable. They wanted to move from PHP to building with Python, but none of the tools and technologies that were around at the time came with the features they wanted - things like CSS, well designed URLs, the way the request/response cycle would work, and deployment. 
 
@@ -39,10 +38,6 @@ What are the benefits that these companies see in building their applications wi
 1. It's simple and fast - apps can get off the ground faster because the structure is simple, and and Django has a reputation to be quick for development.
 
 Instagram is the largest Django application out there right now. When it was sold to Facebook, they had a total of 13 employees working on the app. Today, they have hundreds!
-
-## Conclusion
-
-Throughout the week, we will be building a few full stack applications with Django. Think about that for a moment. So far, we have spent entire units learning out to build out different parts of an application, from the front end to the back end and putting everything together. Using Django, we will be able to build out dynamic projects in a (much) shorter amount of time!
 
 ## Additional Resources
 
