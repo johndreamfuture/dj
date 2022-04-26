@@ -145,3 +145,105 @@ INSTALLED_APPS = [
     'subway'
 ]
 ```
+
+Directory:
+```
+.
+├── nyc_subway
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── subway
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+└── requirements.txt
+```
+
+
+### Running a Migration
+
+Django automatically comes with users. But, we need our database to have a `user` table, etc. In order to "update" our database we'll run a *migration*.
+
+Create & run migrations:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+See how the `nyc_subway` database has changed with `psql`. What has been added?
+
+Whenever we make changes to our Django application that will require changes to the database (such as new tables or column changes) we will need to create and run a migration.
+
+
+### Creating Our First Model
+
+First, let's plan our models using an UML diagram.
+
+https://yuml.me/diagram/scruffy/class/draw
+
+We'll have three models:
+ - Subway Trains
+ - Subway Lines
+ - Subway Stations
+
+What are the relationships between the trains, lines and stations?
+
+Our train models will have the following fields:
+  - Model
+  - Car Count
+  - Line
+
+Our line models will have the following:
+  - Name
+  - Color
+  - Stations
+
+Our stations will have the following:
+  - Name
+  - Lines
+
+```python
+# subway/models.py
+
+class Train(models.Model):
+  name = models.CharField(max_length=5)
+  cbtc_enabled = models.BooleanField()
+  line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name='trains')
+
+  def __str__(self):
+    return self.name
+
+
+class Line(models.Model):
+  name = models.CharField(max_length=4)
+  hex_color = models.CharField(max_length=6)
+  stations = models.ManyToManyField(Station)
+
+  def __str__(self):
+    return self.name
+
+
+class Station(models.Model):
+  name = models.CharField(max_length=120)
+
+  def __str__(self):
+    return self.name
+```
+
+## Then..
+
+create super user
+
+python manage.py createsuperuser
+
+
+Create admin panel
