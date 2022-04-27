@@ -4,8 +4,7 @@
 
 So far we've learened how to make the back-end for web applications two different ways: in Express with Node in JavaScript, and then with Flask in Python. Both are relatively lightweight and require other libraries in order to have even basic functionality (such as Mongoose or PeeWee). Django is philosophically different in that it strives to be a full-featured *framework*, so it will include significantly more features and have much stronger "opinions" on how its code should be written. Neither philosophical approach (lightweight vs. full-featured) is intrinsically better than the other as both have advantages and disadvantages. You may find yourself prefering one way over the other.
 
-Let's learn the core features of Django and how to build web apps "the Django
-way."
+Let's learn the core features of Django and how to build web apps "the Django way."
 
 ## Objectives
 
@@ -13,7 +12,6 @@ By the end of this, you should be able to:
 
 * Discuss the core features of Django
 * Create a Django application
-* Use `manage.py` to create, edit, update and seed a Postgres database
 
 ## What is Django?
 
@@ -36,9 +34,7 @@ We'll be using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/l
 
 Create the virutal environment with `mkvirtualenv nyc_subway`.
 
-We'll automatically enter the virtual envirnoment when we create it. Exit the environemnt with the `deactivate` command and re-enter with `workon nyc_subway`. 
-
-Running just the `workon` command will list all of our available environments and `rmvirtualenv environment_name` to delete one.
+We'll automatically enter the virtual envirnoment when we create it. Exit the environemnt with the `deactivate` command and re-enter with `workon nyc_subway`. If we're in the project's root directory and the root directory is `nyc_subway` all we will need to type is `workon .`.Running just the `workon` command will list all of our available environments and `rmvirtualenv environment_name` to delete one.
 
 
 ### Install Django
@@ -239,11 +235,87 @@ class Station(models.Model):
     return self.name
 ```
 
-## Then..
+## The Admin Panel (where the magic happens)
 
-create super user
+We're going to make our first user that can log into our website: `python manage.py createsuperuser`
 
-python manage.py createsuperuser
+Call the user "admin", the email is optional and you can ignore the password warnings.
 
+Next, we're going to add our models to the admin panel. Update `subway/admin.py`:
+```python
+from django.contrib import admin
+from .models import Train, Line, Station
 
-Create admin panel
+admin.site.register(Train)
+admin.site.register(Line)
+admin.site.register(Station)
+```
+
+Next, go to `http://localhost:8000/admin` and log in. Magic!
+
+## Django's ORM
+
+We'll install `shell_plus` to have a CLI for our Django app with `pip install django-extensions`.
+Also, update your `INSTALLED_APPS` to include `django_extensions`.
+Next, we'll install `ipython` as a dependency of our project with `pip install ipython`.
+
+Make sure you are in your virtual environment for these commands and to run `pip freeze > requirements.txt`!
+
+Now you can use `ipython` as your shell with `python manage.py shell_plus --ipython`.
+
+### Making Queries
+https://docs.djangoproject.com/en/4.0/topics/db/queries/
+
+```python
+# Select all of the artist objects in the database
+Artist.objects.all()
+
+# Select All Objects and Print All Values
+Artist.objects.all().values_list()
+
+# Select All Objects and Print Specific Value
+Artist.objects.all().values_list('name')
+
+# Get the artist with the id of 1 (can also do pk here which stands for primary key)
+Artist.objects.get(id=1)
+
+# Get the artist with the name "Prince", if there are two Prince's this will error!
+Artist.objects.get(name="Prince")
+
+# Get all the Artists who are from the USA
+Artist.objects.filter(nationality="USA")
+
+# Store an artist in a variable for later access:
+t = Artist.objects.get(name="Taylor Swift")
+
+# Now you can look up the artist's songs:
+t.songs.all()
+t.songs.all().values_list()
+
+# Create an Artist with the following attributes, then save, commiting it to the database
+prince = Artist(name="Prinse", bio="Music's GOAT")
+prince.save()
+
+# Oops, we misspelled Prince's name! Let's change it and then commit to the DB
+prince.name = "Prince"
+prince.save()
+
+# Let's add an album to the artist
+album = Album(title="Purple Rain", image_url="test.com", artist=prince)
+album.save()
+
+# Delete the song
+album.delete()
+```
+
+These are some simple ones, but if you like Django, know that you can do some
+really cool things with it's ORM. For example:
+
+```python
+# This will return all Artists who's name starts with an A
+Artist.objects.filter(name__startswith="A")
+
+# This will return all the albums with the id's 1 and 2, excluding all those equal to or greater than 3
+Album.objects.exclude(artist_id__gte=3)
+```
+
