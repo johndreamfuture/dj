@@ -106,7 +106,7 @@ Next, install our Postgres adaptor: `pip install psycopg2-binary`.
 
 Update our project requirements with `pip freeze > requirements.txt`.
 
-Finally, we will edit our `nyc_subway/stettings.py` to include the database configuration:
+Edit the `nyc_subway/stettings.py` file to include the database configuration:
 
 ```python
 DATABASES = {
@@ -120,12 +120,15 @@ DATABASES = {
 }
 ```
 
-Run the `python manage.py runserver` command to make sure it connects to our database without errors. 
+Run `python manage.py runserver` to confirm our Django project connects to our database without errors.
 
 
-### Using `django-admin` to create our Djang App
+### Using `django-admin` to create our Django App
 
 A Django *project* is composed of many *apps*. Our `nyc_subway` project directory is the base of the Django project where we'll handle our base routes, project-level configurations and include our apps. We'll make a `subway` app where we will write our models.
+
+Per the Django documentation...
+> What’s the difference between a project and an app? An app is a web application that does something – e.g., a blog system, a database of public records or a small poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.
 
 Create the app with `django-admin startapp subway`. (Note there's no `.` at the end this time). 
 
@@ -165,26 +168,25 @@ Directory:
 ```
 
 
-### Running a Migration
+### Running Our First Migration
 
-Django automatically comes with users. But, we need our database to have a `user` table, etc. In order to "update" our database we'll run a *migration*.
+If you look at the list of `INSTALLED_APPS` you can see that there are automatically some pre-made Django apps that include user-based authentication. In order for our application to run we need to have a `user` table and more in our database. In order to update our database we'll run a *migration*.
 
-Create & run migrations:
+#### Create & run migrations:
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-See how the `nyc_subway` database has changed with `psql`. What has been added?
+Use `psql` to look at your `nyc_subway` database. What tables have been added?
 
-Whenever we make changes to our Django application that will require changes to the database (such as new tables or column changes) we will need to create and run a migration.
+Whenever we make changes to our Django application that will require changes to the database (such as new tables or column changes) we will need to create and run a migration. 
 
+If we want to see what a migration's SQL code will look like we can run `python manage.py sqlmigrate subway 0001`.
 
 ### Creating Our First Model
 
 First, let's plan our models using an UML diagram.
-
-https://yuml.me/diagram/scruffy/class/draw
 
 We'll have three models:
  - Subway Trains
@@ -206,6 +208,8 @@ Our line models will have the following:
 Our stations will have the following:
   - Name
   - Lines
+
+![UML Diagram](/uml.svg)
 
 ```python
 # subway/models.py
