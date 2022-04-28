@@ -1,6 +1,6 @@
 [![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
 
-# Intro to Django
+# Intro to Django!
 
 So far we've learened how to make the back-end for web applications two different ways: in Express with Node in JavaScript, and then with Flask in Python. Both are relatively lightweight and require other libraries in order to have even basic functionality (such as Mongoose or PeeWee). Django is philosophically different in that it strives to be a full-featured *framework*, so it will include significantly more features and have much stronger "opinions" on how its code should be written. Neither philosophical approach (lightweight vs. full-featured) is intrinsically better than the other as both have advantages and disadvantages. You may find yourself prefering one way over the other.
 
